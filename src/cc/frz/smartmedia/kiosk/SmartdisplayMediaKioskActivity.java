@@ -31,8 +31,10 @@ public class SmartdisplayMediaKioskActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 
+		final Window win = getWindow();
+
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		win.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		setContentView(R.layout.main);
 
