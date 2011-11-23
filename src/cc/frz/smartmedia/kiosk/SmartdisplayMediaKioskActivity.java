@@ -2,8 +2,11 @@ package cc.frz.smartmedia.kiosk;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PowerManager;
@@ -33,6 +36,10 @@ public class SmartdisplayMediaKioskActivity extends Activity
 
 		final Window win = getWindow();
 
+		final IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+		final BroadcastReceiver mReceiver = new ScreenReceiver(this);
+		registerReceiver(mReceiver, filter);
+
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		win.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -48,7 +55,8 @@ public class SmartdisplayMediaKioskActivity extends Activity
 		webView = (WebView) findViewById(R.id.webview);
 		webView.getSettings().setJavaScriptEnabled(true);
 		webView.loadUrl(homeUrl);
-		webView.setWebViewClient(new HelloWebViewClient());
+		webView.setWebViewClient(new UrlLoadingWebViewClient());
+		webView.setWebChromeClient(new LoggingWebChromeClient());
 		controller = new DiplayController(getContentResolver(), wakeLock);
 		controller.turnDisplayOff();
 		webView.addJavascriptInterface(controller, "display");

@@ -33,7 +33,7 @@ public class DiplayController
 		{
 			wakeLock.release();
 		}
-		Settings.System.putInt(contentResolver, Settings.System.SCREEN_OFF_TIMEOUT, 2000);
+		Settings.System.putInt(contentResolver, Settings.System.SCREEN_OFF_TIMEOUT, 5000);
 	}
 
 	public void restoreDisplayTimeout()
